@@ -11,7 +11,7 @@ import lombok.NonNull;
 import ma.business.data.genericdata.entity.CrudSuperEntity;
 
 @NoRepositoryBean
-public interface CrudRepository<T extends CrudSuperEntity,S extends Long> extends JpaRepository<T, S> {
+public interface CrudRepository<T extends CrudSuperEntity, R extends Long> extends JpaRepository<T, R> {
 
     @Override
     Page<T> findAll(@NonNull Pageable pageable);
@@ -20,10 +20,10 @@ public interface CrudRepository<T extends CrudSuperEntity,S extends Long> extend
     <S extends T> S save(@NonNull S entity);
 
     @Override
-    Optional<T> findById(@NonNull S id);
+    Optional<T> findById(@NonNull R id);
 
     @Override
-    boolean existsById(@NonNull S id);
+    boolean existsById(@NonNull R id);
 
     @Override
     void delete(@NonNull T entity);
