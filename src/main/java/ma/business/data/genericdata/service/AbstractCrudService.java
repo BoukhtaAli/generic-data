@@ -3,18 +3,20 @@ package ma.business.data.genericdata.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import ma.business.data.genericdata.entity.CrudSuperEntity;
 import ma.business.data.genericdata.exception.BusinessException;
 import ma.business.data.genericdata.repository.CrudRepository;
 import ma.business.data.genericdata.utils.ExceptionUtils;
 
-@Slf4j
 public abstract class AbstractCrudService<T extends CrudSuperEntity, R extends Long> {
+
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	protected abstract CrudRepository<T, R> getRepository();
 
