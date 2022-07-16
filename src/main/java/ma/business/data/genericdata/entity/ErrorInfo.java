@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.With;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "ERROR_INFO")
@@ -24,18 +26,21 @@ import lombok.With;
 @NoArgsConstructor
 @AllArgsConstructor
 @With
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ErrorInfo implements Serializable {
 
     @Id
     @Column(name = "ID_ERROR_INFO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idErrorInfo;
+    Long idErrorInfo;
 
     @Column(name = "ERROR_DESCRIPTION", nullable = false)
-    private String description;
+    @With
+    String description;
 
     @Column(name = "ERROR_DATE", nullable = false)
-    private LocalDateTime errorDate;
+    @With
+    LocalDateTime errorDate;
 
     @Override
     public boolean equals(Object o) {

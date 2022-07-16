@@ -12,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import ma.business.data.genericdata.enums.State;
 
 @NoArgsConstructor
@@ -23,24 +25,25 @@ import ma.business.data.genericdata.enums.State;
 @Getter
 @Setter
 @MappedSuperclass
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class ProcessableEntity<S extends State> extends Auditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "ATTEMPTS", nullable = false)
-    private Integer attempts = 0;
+    Integer attempts = 0;
 
     @Column(name = "STATE", nullable = false)
-    private S state = getInitialState();
+    S state = getInitialState();
 
     @Column(name = "LOCK_DATE")
-    private LocalDateTime lockDate;
+    LocalDateTime lockDate;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ID_ERROR_INFO")
-    private ErrorInfo errorInfo;
+    ErrorInfo errorInfo;
 
     protected abstract S getInitialState();
 

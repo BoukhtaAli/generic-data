@@ -7,21 +7,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class CrudSuperEntity extends Auditable<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     public abstract Class<CrudSuperEntity> getEntityClass();
 

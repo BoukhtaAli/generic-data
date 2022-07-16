@@ -12,28 +12,31 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PROTECTED)
 public class Auditable<U> {
 
     @CreatedBy
     @Column(name = "CREATED_BY")
-    protected U createdBy;
+    U createdBy;
 
     @CreatedDate
     @Column(name = "CREATED_DATE", nullable = false)
-    protected LocalDateTime createdDate;
+    LocalDateTime createdDate;
 
     @LastModifiedBy
     @Column(name = "LAST_MODIFY_BY")
-    protected U lastModifyBy;
+    U lastModifyBy;
 
     @LastModifiedDate
     @Column(name = "LAST_MODIFY_DATE")
-    protected LocalDateTime lastModifyDate;
+    LocalDateTime lastModifyDate;
 }
